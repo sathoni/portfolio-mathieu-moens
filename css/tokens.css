@@ -1,0 +1,155 @@
+/* ============================================================
+   TOKENS — design system for FLIGHT MM2026
+   Never hardcode hex inline; always use these variables.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap');
+
+:root {
+  /* ---- Navy canvas (≈80% of the page) ---- */
+  --navy-900: #081120;   /* page base */
+  --navy-800: #0C1A2E;   /* sections */
+  --navy-700: #122237;   /* cards */
+  --navy-600: #1B3050;   /* borders */
+  --navy-500: #284568;   /* hairlines / hover borders */
+
+  /* ---- Structural + signal ---- */
+  --blue:   #3B82F6;     /* flight path, links, focus */
+  --blue-soft: #5C9Cff;
+  --amber:  #FFB300;     /* THE spark: CTAs, counters, active, board glow */
+  --amber-deep: #E89200;
+  --signal: #E5481F;     /* red container / destination pin — rare */
+
+  /* ---- Paper surfaces (tactile ticket / passport) ---- */
+  --paper:  #F6EFE1;
+  --paper-shade: #E7DCC6;
+  --ink:    #161513;
+  --ink-soft: #4A4742;
+
+  /* ---- Text on navy ---- */
+  --cloud:  #EAF1FA;
+  --mist:   #8295AE;
+
+  /* ---- Sky leg (Destination contrast) ---- */
+  --sky-top: #BcdcF7;
+  --sky-bot: #6FA8Df;
+  --sky-ink: #0B2540;
+
+  /* ---- Fonts ---- */
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-head:    'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter Tight', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* ---- Fluid type scale ---- */
+  --t-display-xl: clamp(3.5rem, 9vw, 9rem);
+  --t-display:    clamp(2.6rem, 6.5vw, 6rem);
+  --t-bignum:     clamp(2.5rem, 6vw, 5rem);
+  --t-h2:         clamp(1.9rem, 3.4vw, 3rem);
+  --t-h3:         clamp(1.25rem, 2vw, 1.7rem);
+  --t-body:       17px;
+  --t-micro:      13px;
+
+  /* ---- Spacing (8px system) ---- */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 48px; --s6: 64px; --s7: 96px; --s8: 128px;
+
+  --maxw: 1280px;
+  --radius: 14px;
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 18px 50px -18px rgba(0,0,0,.7), 0 4px 14px -6px rgba(0,0,0,.5);
+  --shadow-paper:
+    0 24px 60px -22px rgba(0,0,0,.7),
+    0 6px 18px -8px rgba(0,0,0,.45),
+    inset 0 2px 0 rgba(255,255,255,.55),
+    inset 0 -1px 0 rgba(0,0,0,.08);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--navy-900);
+  color: var(--cloud);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ---- Type primitives ---- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: .92;
+  letter-spacing: .01em;
+}
+.mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: var(--t-micro);
+}
+.mono-lg { font-family: var(--font-mono); letter-spacing: .04em; }
+.head { font-family: var(--font-head); }
+
+/* Wayfinding accent label */
+.wayfinding {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-size: var(--t-micro);
+  color: var(--amber);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+}
+.wayfinding::before {
+  content: "";
+  width: 26px; height: 1px;
+  background: var(--amber);
+  display: inline-block;
+}
+
+/* ---- Focus visibility (amber rings everywhere) ---- */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Layout helpers ---- */
+.shell {
+  width: min(100% - 2 * var(--s4), var(--maxw));
+  margin-inline: auto;
+}
+.leg {
+  position: relative;
+  padding-block: clamp(var(--s7), 12vh, var(--s8));
+  z-index: 1;
+}
+
+/* ---- Lucide icon sizing ---- */
+[data-lucide] { width: 1em; height: 1em; stroke-width: 1.75; vertical-align: middle; }
+
+/* ---- Screen-reader only ---- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mathieu Moens — Flight MM2026 · Eindpresentatie</title>
+<meta name="description" content="Eindpresentatie portfolio van Mathieu Moens, afstuderend Graduaat Marketing- & Communicatiesupport (Odisee Brussel). Een vlucht van opleiding naar bestemming: logistiek & supply chain.">
+<meta name="author" content="Mathieu Moens">
+<meta name="theme-color" content="#081120">
+
+<!-- Favicon (boarding-pass plane mark) -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mathieu Moens — Eindpresentatie portfolio">
+<meta property="og:description" content="Now Boarding · Destination: the future. Een doorlopende vlucht door mijn opleiding, stages en toekomst in logistiek & supply chain.">
+<meta property="og:image" content="images/headshot.jpg">
+<meta property="og:locale" content="nl_BE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mathieu Moens — Eindpresentatie portfolio">
+<meta name="twitter:description" content="Now Boarding · Destination: the future. Logistiek & supply chain.">
+<meta name="twitter:image" content="images/headshot.jpg">
+
+<!-- Faster font loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/legs.css">
+</head>
+<body>
+<a class="skip-link" href="#leg-checkin">Naar de inhoud</a>
+
+<!-- ===== FLIGHT PATH (behind content; scroll-driven hooks for later GSAP MotionPath) ===== -->
+<div class="flightpath-wrap" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <path class="fp-line" data-anim="flightpath" d=""></path>
+    <path class="fp-line trail" d=""></path>
+    <!-- plane rides the path on scroll -->
+    <path class="fp-plane" data-anim="plane" d="M 13 0 L -11 -8 L -5 0 L -11 8 Z"></path>
+  </svg>
+</div>
+
+<!-- ===== FIXED OVERLAY: boarding-pass tab ===== -->
+<div class="bp-tab" aria-hidden="true">
+  <span class="dot"></span>
+  <span class="leg-now-label">FLIGHT&nbsp;MM2026&nbsp;·&nbsp;</span>
+  <span class="tab-perf"></span>
+  <span class="leg-now">MM00</span>
+</div>
+
+<!-- ===== FIXED OVERLAY: flight-progress rail (the ONLY wayfinding) ===== -->
+<nav class="rail" aria-label="Vluchtvoortgang">
+  <span class="rail-line" aria-hidden="true"></span>
+  <span class="rail-plane" aria-hidden="true"><span data-lucide="plane"></span></span>
+  <button data-leg="0" data-label="NOW BOARDING" aria-label="Ga naar: Boarding"></button>
+  <button data-leg="1" data-label="CHECK-IN" aria-label="Ga naar: Check-in"></button>
+  <button data-leg="2" data-label="DEPARTURES" aria-label="Ga naar: Stages"></button>
+  <button data-leg="3" data-label="FEATURED CARGO" aria-label="Ga naar: Uitgelichte cargo"></button>
+  <button data-leg="4" data-label="CRUISING" aria-label="Ga naar: Sterktes & werkpunten"></button>
+  <button data-leg="5" data-label="DESTINATION" aria-label="Ga naar: Bestemming"></button>
+  <button data-leg="6" data-label="FLIGHT PLAN" aria-label="Ga naar: Vliegplan"></button>
+  <button data-leg="7" data-label="ARRIVAL" aria-label="Ga naar: Aankomst"></button>
+  <button data-leg="8" data-label="LANDED" aria-label="Ga naar: Geland & contact"></button>
+</nav>
+<nav class="rail-mobile" aria-label="Vluchtvoortgang">
+  <button data-leg="0" aria-label="Ga naar: Boarding"></button>
+  <button data-leg="1" aria-label="Ga naar: Check-in"></button>
+  <button data-leg="2" aria-label="Ga naar: Stages"></button>
+  <button data-leg="3" aria-label="Ga naar: Uitgelichte cargo"></button>
+  <button data-leg="4" aria-label="Ga naar: Sterktes & werkpunten"></button>
+  <button data-leg="5" aria-label="Ga naar: Bestemming"></button>
+  <button data-leg="6" aria-label="Ga naar: Vliegplan"></button>
+  <button data-leg="7" aria-label="Ga naar: Aankomst"></button>
+  <button data-leg="8" aria-label="Ga naar: Geland & contact"></button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     LEG 0 — NOW BOARDING
+     ============================================================ -->
+<section class="leg hero leg--900" data-code="MM00" data-screen-label="Leg 0 · Boarding">
+  <div class="sky-layer stars" data-parallax="0.12"></div>
+  <div class="sky-layer cloud-far" data-parallax="0.22"></div>
+  <div class="sky-layer cloud-near" data-parallax="0.40"></div>
+  <div class="runway" aria-hidden="true"></div>
+
+  <div class="hero-inner shell">
+    <span class="wayfinding" data-reveal>NOW BOARDING — DESTINATION: THE FUTURE</span>
+
+    <!-- split-flap name -->
+    <h1 class="hero-name" aria-label="Mathieu Moens">
+      <span class="flap-board" aria-hidden="true">
+        <span class="flap" data-anim="flap" data-final="M"></span>
+        <span class="flap" data-anim="flap" data-final="A"></span>
+        <span class="flap" data-anim="flap" data-final="T"></span>
+        <span class="flap" data-anim="flap" data-final="H"></span>
+        <span class="flap" data-anim="flap" data-final="I"></span>
+        <span class="flap" data-anim="flap" data-final="E"></span>
+        <span class="flap" data-anim="flap" data-final="U"></span>
+        <span class="flap gap"></span>
+        <span class="flap" data-anim="flap" data-final="M"></span>
+        <span class="flap" data-anim="flap" data-final="O"></span>
+        <span class="flap" data-anim="flap" data-final="E"></span>
+        <span class="flap" data-anim="flap" data-final="N"></span>
+        <span class="flap" data-anim="flap" data-final="S"></span>
+      </span>
+    </h1>
+
+    <p class="mono-lg" data-reveal data-delay="1" style="color:var(--mist); font-size:13px; letter-spacing:.1em;">
+      BOARDING PASS · FLIGHT MM2026 · GRADUAAT MARKETING &amp; COMMUNICATIE
+    </p>
+
+    <!-- boarding pass with headshot (stub tears away on scroll) -->
+    <div class="boarding-pass hero-pass grain" data-reveal data-delay="2" data-tear>
+      <div class="bp-main">
+        <div class="bp-header">
+          <span class="bp-brand">Boarding&nbsp;Pass</span>
+          <span class="mono" style="color:var(--ink-soft);">MM2026</span>
+        </div>
+        <div style="display:grid; grid-template-columns:auto 1fr; gap:var(--s4); align-items:center;">
+          <div class="photo-frame" style="width:118px;">
+            <figure class="image-slot" style="--ratio: 4 / 5; margin:0;" data-ratio>
+              <img src="images/headshot.jpg" alt="Portret van Mathieu Moens" width="1000" height="1250" fetchpriority="high" decoding="async">
+              <span class="slot-ico" data-lucide="image" aria-hidden="true"></span>
+              <span class="slot-name">headshot.webp</span>
+              <span class="slot-dim">1000×1250</span>
+            </figure>
+          </div>
+          <div class="bp-fields">
+            <div class="bp-field"><div class="k">Passenger</div><div class="v">M. MOENS</div></div>
+            <div class="bp-field"><div class="k">Flight</div><div class="v">MM2026</div></div>
+            <div class="bp-field"><div class="k">Gate</div><div class="v">G01</div></div>
+            <div class="bp-field"><div class="k">Seat</div><div class="v">26A</div></div>
+          </div>
+        </div>
+        <div class="barcode" aria-hidden="true"></div>
+      </div>
+      <div class="bp-stub" data-comment-anchor="1dc32912aa-div">
+        <div>
+          <div class="mono" style="color:var(--ink-soft);">FROM</div>
+          <div class="mono-lg" style="font-weight:700;">ODISEE</div>
+          <div class="mono" style="color:var(--ink-soft); margin-top:10px;">TO</div>
+          <div class="mono-lg" style="font-weight:700;">FUTURE</div>
+        </div>
+        <div class="barcode vertical" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <span class="scroll-cue" data-reveal data-delay="3">
+      <span data-lucide="chevron-down" aria-hidden="true"></span>
+      SCROLL TO BOARD
+    </span>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 1 — CHECK-IN  (wat ik leerde)
+     ============================================================ -->
+<section id="leg-checkin" class="leg leg--800" data-code="MM01" data-screen-label="Leg 1 · Check-in">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>CHECK-IN</span>
+      <span class="leg-code" data-reveal>WAT IK LEERDE</span>
+    </div>
+
+    <h2 class="leg-title display" data-reveal>De route tot <span class="amber">nu</span>.</h2>
+
+    <!-- boarding-pass stub printing the route -->
+    <div class="boarding-pass grain" data-reveal data-delay="1" style="margin-top:var(--s5); margin-bottom:var(--s5);">
+      <div class="bp-main">
+        <span class="mono" style="color:var(--ink-soft);">ROUTE</span>
+        <div class="route" style="margin-top:var(--s2);">
+          <span>Secundair</span>
+          <span class="seg-ico" data-lucide="plane" aria-hidden="true"></span>
+          <span>Graduaat</span>
+          <span class="seg-ico" data-lucide="plane" aria-hidden="true"></span>
+          <span class="now">Nu</span>
+        </div>
+        <p class="mono" style="color:var(--ink-soft); margin-top:var(--s3); letter-spacing:.06em; line-height:1.7;">
+          Graduaat Marketing- &amp; Communicatiesupport · Odisee Brussel<br>
+          afstudeerrichting Marketingsupport
+        </p>
+      </div>
+      <div class="bp-stub">
+        <div class="mono" style="color:var(--ink-soft);">CHECKED<br>BAGGAGE</div>
+        <div class="barcode vertical" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- luggage-tag chips -->
+    <div class="tags" data-reveal data-delay="2">
+      <span class="tag swing">SEO &amp; SEA</span>
+      <span class="tag swing">Adobe · Ps · Ai · Id</span>
+      <span class="tag swing">Webdesign</span>
+      <span class="tag swing">Contentcreatie</span>
+      <span class="tag swing">Digitale marketing</span>
+      <span class="tag swing">NL / FR / EN</span>
+    </div>
+
+    <div class="quote-stamp-row" style="margin-top:var(--s6);">
+      <blockquote class="pull" data-reveal data-delay="2">
+        Van een handje vasthouden in het middelbaar naar mijn <span class="amber">eigen plan trekken</span>.
+      </blockquote>
+      <!-- decorative border-control stamp in the empty space -->
+      <div class="deco-stamp" data-reveal data-delay="3" aria-hidden="true">
+        <span class="ds-top">★ BORDER CONTROL ★</span>
+        <span class="ds-big">SOLO FLIGHT</span>
+        <span class="ds-mid">— APPROVED —</span>
+        <span class="ds-sub">INDEPENDENT TRAVELER · MM2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 2 — DEPARTURES  (stages)
+     ============================================================ -->
+<section class="leg leg--900" data-code="MM02" data-screen-label="Leg 2 · Departures">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>DEPARTURES</span>
+      <span class="leg-code" data-reveal>STAGES</span>
+    </div>
+    <h2 class="leg-title display" data-reveal>Twee <span class="amber">stempels</span> in mijn paspoort.</h2>
+
+    <div class="passport grain" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      <!-- page 1 -->
+      <div class="page">
+        <div style="display:flex; gap:var(--s4); align-items:flex-start; flex-wrap:wrap;">
+          <div class="stamp" data-anim="stamp" style="--rot:-9deg;">
+            <span class="s-big">IDE COFFEE</span>
+            <span class="s-small">ASSE · 2025</span>
+          </div>
+          <div style="flex:1; min-width:180px;">
+            <div class="placement-row">
+              <figure class="image-slot logo-slot" style="--ratio: 1 / 1; margin:0;" data-ratio>
+                <img src="images/logo-ide-coffee.png" alt="Logo IDE Coffee" loading="lazy" decoding="async">
+                <span class="slot-ico" data-lucide="image" aria-hidden="true"></span>
+                <span class="slot-name">logo-ide-coffee</span>
+                <span class="slot-dim">1:1</span>
+              </figure>
+              <p class="mono" style="color:var(--mist); line-height:1.8;">MARKETING &amp; COMMUNICATIE<br>SOCIAL · CONTENT · CRM</p>
+            </div>
+            <p class="lead" style="margin-top:var(--s2);">“Eerste echte marketingomgeving.”</p>
+          </div>
+        </div>
+        <span class="page-no">PASS · 01</span>
+      </div>
+      <!-- page 2 -->
+      <div class="page">
+        <div style="display:flex; gap:var(--s4); align-items:flex-start; flex-wrap:wrap;">
+          <div class="stamp blue" data-anim="stamp" style="--rot:7deg;">
+            <span class="s-big">JAIMY</span>
+            <span class="s-small">BRUSSEL · 2026</span>
+          </div>
+          <div style="flex:1; min-width:180px;">
+            <div class="placement-row">
+              <figure class="image-slot logo-slot" style="--ratio: 5 / 2; width:150px; margin:0;" data-ratio>
+                <img src="images/logo-jaimy.png" alt="Logo Jaimy by Belfius" loading="lazy" decoding="async">
+                <span class="slot-ico" data-lucide="image" aria-hidden="true"></span>
+                <span class="slot-name">logo-jaimy</span>
+                <span class="slot-dim">5:2</span>
+              </figure>
+              <p class="mono" style="color:var(--mist); line-height:1.8;">HEATINGCOMFORT · SEO · SOCIAL<br>LANDINGSPAGINA'S · E-MAILFUNNEL</p>
+            </div>
+            <p class="lead" style="margin-top:var(--s2);">“Van 0 kennis over ketelonderhoud naar een volledig project.”</p>
+          </div>
+        </div>
+        <span class="page-no">PASS · 02</span>
+      </div>
+      <!-- decorative border-control stamp on the passport frame -->
+      <div class="passport-mark" aria-hidden="true">
+        <span class="pm-core">BE</span>
+        <span class="pm-ring">PASSPORT CONTROL · DEPARTURES</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 3 — FEATURED CARGO  (meest trots op)
+     ============================================================ -->
+<section class="leg leg--800" data-code="MM03" data-screen-label="Leg 3 · Featured Cargo">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>FEATURED CARGO</span>
+      <span class="leg-code" data-reveal>WAAR IK TROTS OP BEN</span>
+    </div>
+    <h2 class="leg-title display" data-reveal>De <span class="amber">kostbare lading</span>.</h2>
+
+    <div class="cargo-grid" style="margin-top:var(--s5);">
+      <!-- crane lowers the container, then the doors open -->
+      <div data-reveal data-delay="1">
+        <div class="crane-cargo" data-anim="container">
+          <div class="crane" aria-hidden="true">
+            <span class="crane-wire"></span>
+            <span class="crane-hook"></span>
+          </div>
+          <div class="cargo-box">
+            <div class="cargo-body">
+              <div class="cargo-door left" aria-hidden="true"></div>
+              <div class="cargo-door right" aria-hidden="true"></div>
+            </div>
+            <div class="cargo-floor" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="mono" style="text-align:center; color:var(--mist); margin-top:var(--s4);">CARGO MM03 · AFGELEVERD</p>
+      </div>
+
+      <!-- precious cargo -->
+      <div data-reveal data-delay="2" style="display:grid; gap:var(--s4);">
+        <div class="card">
+          <span class="kicker">VZW · IMPACT</span>
+          <h3 style="margin:6px 0 var(--s2);">BruZelle</h3>
+          <div style="display:grid; grid-template-columns:auto 1fr; gap:var(--s3); align-items:center;">
+            <figure class="image-slot" style="--ratio:1/1; width:96px; margin:0;" data-ratio>
+              <img src="images/bruzelle-cover.png" alt="Cover infoboekje BruZelle" loading="lazy" decoding="async">
+              <span class="slot-ico" data-lucide="image" aria-hidden="true"></span>
+              <span class="slot-name">bruzelle</span>
+            </figure>
+            <p class="lead">Infoboekje om menstruatie bespreekbaar te maken op school · met 4 medestudenten · <em>“Echte impact.”</em></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="kicker">JAIMY · RESULTATEN</span>
+          <div class="counters" style="margin-top:var(--s3);">
+            <div class="counter">
+              <div class="num" data-anim="counter" data-to="21">0</div>
+              <div class="cap">SEO-blogs<br>(NL + FR)</div>
+            </div>
+            <div class="counter">
+              <div class="num" data-anim="counter" data-to="5">0</div>
+              <div class="cap">mails / 30 dagen<br>funnel</div>
+            </div>
+            <div class="counter">
+              <div class="num" data-anim="counter" data-to="1">0</div>
+              <div class="cap">referral-programma<br>(BE primeur)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="pull" data-reveal data-delay="2" style="margin-top:var(--s6);">
+      Trots op werk dat <span class="amber">écht iets bijdraagt</span>.
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 4 — CRUISING ALTITUDE  (sterktes · werkpunten · Ofman)
+     ============================================================ -->
+<section class="leg leg--900" data-code="MM04" data-screen-label="Leg 4 · Cruising Altitude">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>CRUISING ALTITUDE</span>
+      <span class="leg-code" data-reveal>INSTRUMENTEN AAN BOORD</span>
+    </div>
+
+    <!-- 4a strengths -->
+    <div class="panel" data-reveal data-delay="1">
+      <span class="kicker">STERKTES</span>
+      <div class="gauges" style="margin-top:var(--s4);">
+        <div class="gauge-wrap">
+          <div class="gauge" data-anim="gauge" data-val="0.92"><span class="ticks"></span><span class="needle"></span><span class="hub"></span><span class="g-label">Zelfstandigheid</span></div>
+        </div>
+        <div class="gauge-wrap">
+          <div class="gauge" data-anim="gauge" data-val="0.85"><span class="ticks"></span><span class="needle"></span><span class="hub"></span><span class="g-label">Snel nieuwe tools</span></div>
+        </div>
+        <div class="gauge-wrap">
+          <div class="gauge" data-anim="gauge" data-val="0.95"><span class="ticks"></span><span class="needle"></span><span class="hub"></span><span class="g-label">Webdesign (passie)</span></div>
+        </div>
+        <div class="gauge-wrap">
+          <div class="gauge" data-anim="gauge" data-val="0.8"><span class="ticks"></span><span class="needle"></span><span class="hub"></span><span class="g-label">Adobe &amp; marketingtaal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4b werkpunten -->
+    <div class="panel" data-reveal data-delay="1">
+      <span class="kicker">WERKPUNTEN &amp; TURBULENTIE</span>
+      <div style="margin-top:var(--s2);">
+        <div class="turb-row">
+          <div class="t-issue"><span data-lucide="git-pull-request-arrow" aria-hidden="true"></span>Omgaan met feedback</div>
+          <div class="t-fix">aanpak: <b>sneller loskoppelen van de emotie, eerst vragen stellen</b></div>
+        </div>
+        <div class="turb-row">
+          <div class="t-issue"><span data-lucide="move" aria-hidden="true"></span>Flexibiliteit</div>
+          <div class="t-fix">aanpak: <b>sneller loslaten, minder gehecht aan gemaakt werk</b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4c Ofman kernkwadrant -->
+    <div class="panel" data-reveal data-delay="1">
+      <span class="kicker">OFMAN KERNKWADRANT</span>
+      <div class="kwadrant" data-anim="ofman" style="margin-top:var(--s4);">
+        <div class="kw-cell quality">
+          <span class="kw-type">KERNKWALITEIT</span>
+          <h4>Zelfstandigheid</h4>
+        </div>
+        <div class="kw-arrow top">
+          <span class="kw-label">Te veel van het goede</span>
+          <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M 8 24 L 96 24 M 80 10 L 108 24 L 80 38"></path></svg>
+        </div>
+        <div class="kw-cell pitfall">
+          <span class="kw-type">VALKUIL</span>
+          <h4>Eigenwijs · te gehecht aan eigen werk</h4>
+        </div>
+
+        <div class="kw-arrow left">
+          <svg viewBox="0 0 48 112" aria-hidden="true"><path d="M 24 104 L 24 26 M 10 42 L 24 12 L 38 42"></path></svg>
+          <span class="kw-label">Positief tegenovergestelde</span>
+        </div>
+        <div class="kw-center" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <path d="M 22 22 L 98 98 M 22 42 L 22 22 L 42 22 M 98 78 L 98 98 L 78 98"></path>
+            <path d="M 98 22 L 22 98 M 78 22 L 98 22 L 98 42 M 42 98 L 22 98 L 22 78"></path>
+          </svg>
+        </div>
+        <div class="kw-arrow right">
+          <svg viewBox="0 0 48 112" aria-hidden="true"><path d="M 24 8 L 24 86 M 10 70 L 24 100 L 38 70"></path></svg>
+          <span class="kw-label">Positief tegenovergestelde</span>
+        </div>
+
+        <div class="kw-cell allergy">
+          <span class="kw-type">ALLERGIE</span>
+          <h4>Micromanagement · betutteld worden</h4>
+        </div>
+        <div class="kw-arrow bottom">
+          <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M 112 24 L 24 24 M 40 10 L 12 24 L 40 38"></path></svg>
+          <span class="kw-label">Te veel van het goede</span>
+        </div>
+        <div class="kw-cell challenge">
+          <span class="kw-type">UITDAGING</span>
+          <h4>Loslaten &amp; openstaan voor feedback</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 5 — DESTINATION  (sky contrast)
+     ============================================================ -->
+<section class="leg leg--sky" data-code="MM05" data-screen-label="Leg 5 · Destination">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>DESTINATION</span>
+      <span class="leg-code" data-reveal>WAAR IK NAARTOE WIL</span>
+    </div>
+    <h2 class="leg-title display" data-reveal>Bestemming: <span style="color:var(--signal);">de wereld</span>.</h2>
+
+    <!-- globe + arc -->
+    <div class="globe-stage" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      <div class="globe" data-anim="globe" role="img" aria-label="Lage-resolutie globe met een vluchtboog vanuit België">
+        <svg class="grid-lines" viewBox="0 0 100 100" aria-hidden="true">
+          <ellipse cx="50" cy="50" rx="49" ry="20" fill="none" stroke="rgba(11,37,64,.35)" stroke-width="0.5"></ellipse>
+          <ellipse cx="50" cy="50" rx="49" ry="38" fill="none" stroke="rgba(11,37,64,.25)" stroke-width="0.5"></ellipse>
+          <ellipse cx="50" cy="50" rx="20" ry="49" fill="none" stroke="rgba(11,37,64,.3)" stroke-width="0.5"></ellipse>
+          <ellipse cx="50" cy="50" rx="38" ry="49" fill="none" stroke="rgba(11,37,64,.2)" stroke-width="0.5"></ellipse>
+        </svg>
+        <!-- continuous looping flight arcs (independent of scroll) -->
+        <svg class="globe-loops" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M 22 60 Q 50 4 80 40"></path>
+          <path d="M 14 44 Q 52 18 86 56"></path>
+          <path d="M 30 80 Q 62 28 74 22"></path>
+          <path d="M 18 34 Q 46 64 82 72"></path>
+        </svg>
+        <svg class="globe-arc" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M 34 46 Q 58 8 82 36"></path>
+          <circle class="globe-pin" cx="34" cy="46" r="2.6"></circle>
+          <circle class="globe-pin" cx="82" cy="36" r="2.6"></circle>
+        </svg>
+      </div>
+
+      <!-- destination flip-board (mechanical flip reveal on scroll) -->
+      <div class="flip-strip" data-anim="flip" aria-label="Bestemmingen">
+        <span class="flip-cell">SUPPLY CHAIN</span>
+        <span class="flip-cell">LOGISTICS HUB / AIRPORT</span>
+        <span class="flip-cell">FREELANCE WEB</span>
+        <span class="flip-cell">THE WORLD</span>
+      </div>
+    </div>
+
+    <!-- 4 cards -->
+    <div class="dest-cards" data-reveal data-delay="2" style="margin-top:var(--s6);" data-comment-anchor="3989c4400d-div">
+      <div class="card">
+        <span class="card-ico" data-lucide="building-2" aria-hidden="true"></span>
+        <span class="kicker">TYPE BEDRIJF</span>
+        <h3 style="margin:6px 0 8px;" data-comment-anchor="ace0baddc8-h3">Groot &amp; internationaal</h3>
+        <p>Groot internationaal logistiek bedrijf (type Amazon) · buitenland · groeikansen.</p>
+      </div>
+      <div class="card">
+        <span class="card-ico" data-lucide="route" aria-hidden="true"></span>
+        <span class="kicker">IDEALE FUNCTIE</span>
+        <h3 style="margin:6px 0 8px;">Data &amp; processen</h3>
+        <p>Data-analist / supply chain manager · de keten verbeteren · veel reizen.</p>
+      </div>
+      <div class="card">
+        <span class="card-ico" data-lucide="clock" aria-hidden="true"></span>
+        <span class="kicker">KORTE TERMIJN</span>
+        <h3 style="margin:6px 0 8px;">Studeren + bouwen</h3>
+        <p>Verder studeren in logistiek/supply chain + freelance websites.</p>
+      </div>
+      <div class="card">
+        <span class="card-ico" data-lucide="graduation-cap" aria-hidden="true"></span>
+        <span class="kicker">VERDER STUDEREN</span>
+        <h3 style="margin:6px 0 8px;">Supply chain / logistiek</h3>
+        <p>Vervolgopleiding logistiek · plannen: freelance webdesign ernaast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 6 — FLIGHT PLAN  (jobzoektocht)
+     ============================================================ -->
+<section class="leg leg--800" data-code="MM06" data-screen-label="Leg 6 · Flight Plan">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>FLIGHT PLAN</span>
+      <span class="leg-code" data-reveal>DE JOBZOEKTOCHT</span>
+    </div>
+    <h2 class="leg-title display" data-reveal>Drie <span class="amber">waypoints</span> onderweg.</h2>
+
+    <div class="waypoints" style="margin-top:var(--s6);">
+      <div class="waypoint" data-anim="waypoint" data-reveal data-delay="1">
+        <div class="wp-ping">01</div>
+        <h3>Netwerk</h3>
+        <p class="wp-sub">connecties laten werken</p>
+      </div>
+      <div class="waypoint" data-anim="waypoint" data-reveal data-delay="2">
+        <div class="wp-ping">02</div>
+        <h3>Fit</h3>
+        <p class="wp-sub">iets kiezen dat ik écht graag doe</p>
+      </div>
+      <div class="waypoint" data-anim="waypoint" data-reveal data-delay="3">
+        <div class="wp-ping">03</div>
+        <h3>Nu aan boord</h3>
+        <p class="wp-sub">al een studentenjob: <b>Nationale Loterij</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 7 — ARRIVAL  (wat ik anders zou doen)
+     ============================================================ -->
+<section class="leg leg--900" data-code="MM07" data-screen-label="Leg 7 · Arrival">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>ARRIVAL</span>
+      <span class="leg-code" data-reveal>TERUGBLIK OP DE BAAN</span>
+    </div>
+
+    <span class="kicker" data-reveal style="display:block; margin-bottom:var(--s4);">ALS IK HET OPNIEUW DEED</span>
+
+    <div class="runway-scene">
+      <div class="rwy-floor" aria-hidden="true"><span class="rwy-dashes"></span></div>
+      <div class="rwy-boards">
+        <div class="rwy-board" data-reveal data-delay="1"><span class="rb-no">01</span><span class="rb-text">Tijdiger aan mijn stage en deadlines beginnen</span></div>
+        <div class="rwy-board" data-reveal data-delay="2"><span class="rb-no">02</span><span class="rb-text">Minder uitstellen</span></div>
+        <div class="rwy-board" data-reveal data-delay="3"><span class="rb-no">03</span><span class="rb-text">Betere notities nemen</span></div>
+      </div>
+      <div class="rwy-footer" data-reveal data-delay="4">
+        <span class="rf-text"><em>“Les voor de volgende reis.”</em></span>
+        <span class="rf-plane" data-lucide="plane-takeoff" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LEG 8 — LANDED  (outro / contact)
+     ============================================================ -->
+<section class="leg leg--800" data-code="MM08" data-screen-label="Leg 8 · Landed">
+  <div class="shell">
+    <div class="leg-head">
+      <span class="wayfinding" data-reveal>ARRIVED</span>
+      <span class="leg-code" data-reveal>EINDBESTEMMING</span>
+    </div>
+    <div class="landed">
+    <div class="stamp blue" data-anim="stamp" data-reveal style="--rot:-6deg; transform:none;">
+      <span class="s-big">ARRIVED</span>
+      <span class="s-small">2026</span>
+    </div>
+
+    <p class="next-dep" data-reveal data-delay="1">NEXT DEPARTURE: LOADING<span class="blink">…</span></p>
+
+    <!-- contact boarding-pass footer -->
+    <div class="boarding-pass contact-pass grain" data-reveal data-delay="2">
+      <div class="bp-main">
+        <div class="bp-header">
+          <span class="bp-brand">Mathieu&nbsp;Moens</span>
+          <span class="mono" style="color:var(--ink-soft);">CONTACT · MM2026</span>
+        </div>
+        <div class="contact-actions">
+          <a class="pill solid underline" href="https://www.linkedin.com/in/mathieu-moens-a962b31bb/" target="_blank" rel="noopener">
+            <span class="pill-ico" data-lucide="linkedin" aria-hidden="true"></span> LinkedIn
+          </a>
+          <a class="pill underline" href="mailto:mathieu.moens290505@gmail.com" style="background:var(--paper-shade); color:var(--ink); border-color:rgba(22,21,19,.2);">
+            <span class="pill-ico" data-lucide="mail" aria-hidden="true" style="color:var(--signal);"></span> E-mail
+          </a>
+        </div>
+      </div>
+      <div class="bp-stub contact-stub">
+        <div class="barcode vertical" aria-hidden="true"></div>
+        <div class="mono" style="color:var(--ink-soft); text-align:center;">SEAT<br>26A</div>
+      </div>
+    </div>
+
+    <p class="lead" data-reveal data-delay="3" style="text-align:center;"><em>“Bedankt om mee te vliegen.”</em></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<!-- Upgrades: smooth scroll (Lenis) + scroll choreography (GSAP) -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script src="js/app.js"></script>
+
+<!-- direct-edit style overrides land here -->
+<style id="__om-edit-overrides"></style>
+</body>
+</html>

@@ -1,0 +1,491 @@
+/* ============================================================
+   LEGS — section layouts, fixed overlays, flight path, motion
+   ============================================================ */
+
+/* ---- alternating section tones (navy dominates) ---- */
+.leg--800 { background: var(--navy-800); }
+.leg--900 { background: var(--navy-900); }
+
+/* section eyebrow row: wayfinding + leg code */
+.leg-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s5);
+}
+.leg-code { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; color: var(--mist); }
+.leg-code b { color: var(--cloud); }
+
+.leg-title { font-size: var(--t-display); color: var(--cloud); }
+.leg-title .amber { color: var(--amber); }
+
+.lead { color: var(--mist); max-width: 56ch; }
+.pull {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: var(--t-h2);
+  line-height: 1.02;
+  color: var(--cloud);
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.pull .amber { color: var(--amber); }
+
+/* ============================================================
+   FIXED OVERLAYS
+   ============================================================ */
+
+/* flight-path SVG behind everything */
+.flightpath-wrap {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+  overflow: visible;
+}
+.flightpath-wrap svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.fp-line {
+  fill: none; stroke: var(--blue);
+  stroke-width: 2; stroke-dasharray: 7 9;
+  opacity: .42;
+  filter: drop-shadow(0 0 6px rgba(59,130,246,.6));
+}
+.fp-line.trail { /* filled progress portion */
+  opacity: .9; stroke: var(--blue-soft);
+  filter: drop-shadow(0 0 8px rgba(92,156,255,.8));
+}
+.fp-plane {
+  fill: var(--amber);
+  filter: drop-shadow(0 0 10px rgba(255,179,0,.6));
+}
+
+/* top-left boarding-pass tab */
+.bp-tab {
+  position: fixed; top: var(--s3); left: var(--s3); z-index: 60;
+  background: var(--paper); color: var(--ink);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,.6);
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+}
+.bp-tab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+.bp-tab .leg-now { font-weight: 700; }
+.bp-tab .tab-perf { width: 1px; align-self: stretch; border-left: 2px dashed rgba(22,21,19,.4); margin: -8px 2px; }
+
+/* right-edge progress rail (desktop) */
+.rail {
+  position: fixed; right: var(--s3); top: 50%; transform: translateY(-50%);
+  z-index: 60;
+  display: flex; flex-direction: column; gap: 14px; align-items: center;
+}
+.rail-line { position: absolute; top: 4px; bottom: 4px; width: 2px; background: var(--navy-600); z-index: -1; }
+.rail button {
+  width: 13px; height: 13px; padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--navy-500);
+  background: var(--navy-800);
+  position: relative;
+  transition: transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+}
+.rail button::after { /* tooltip */
+  content: attr(data-label);
+  position: absolute; right: 22px; top: 50%; transform: translateY(-50%) translateX(6px);
+  background: var(--navy-700); color: var(--cloud);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em;
+  padding: 4px 8px; border-radius: 5px; white-space: nowrap;
+  border: 1px solid var(--navy-600);
+  opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+}
+.rail button:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+.rail button[aria-current="true"] {
+  background: var(--amber); border-color: var(--amber);
+  transform: scale(1.5);
+  box-shadow: 0 0 14px rgba(255,179,0,.6);
+}
+
+/* mobile bottom dot-strip */
+.rail-mobile {
+  display: none;
+  position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%);
+  z-index: 60;
+  gap: 8px; padding: 8px 12px;
+  background: rgba(12,26,46,.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--navy-600);
+  border-radius: 999px;
+}
+.rail-mobile button {
+  width: 9px; height: 9px; border-radius: 50%; padding: 0;
+  border: none; background: var(--navy-500);
+  transition: background .3s, transform .3s;
+}
+.rail-mobile button[aria-current="true"] { background: var(--amber); transform: scale(1.4); }
+
+/* ============================================================
+   LEG 0 — HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: grid; place-items: center;
+  text-align: center;
+  padding-block: var(--s7) var(--s6);
+  position: relative; overflow: hidden;
+}
+/* parallax sky layers */
+.sky-layer { position: absolute; inset: 0; pointer-events: none; }
+.stars { background-image:
+  radial-gradient(1.5px 1.5px at 20% 30%, rgba(234,241,250,.7), transparent),
+  radial-gradient(1.5px 1.5px at 70% 20%, rgba(234,241,250,.55), transparent),
+  radial-gradient(1px 1px at 40% 60%, rgba(234,241,250,.5), transparent),
+  radial-gradient(1.5px 1.5px at 85% 65%, rgba(234,241,250,.6), transparent),
+  radial-gradient(1px 1px at 55% 80%, rgba(234,241,250,.45), transparent),
+  radial-gradient(1px 1px at 10% 75%, rgba(234,241,250,.5), transparent);
+}
+.cloud-far, .cloud-near {
+  background-repeat: no-repeat;
+  opacity: .5;
+}
+.cloud-far {
+  background:
+    radial-gradient(60% 80% at 18% 28%, rgba(40,69,104,.55), transparent 70%),
+    radial-gradient(50% 70% at 82% 35%, rgba(40,69,104,.45), transparent 70%);
+}
+.cloud-near {
+  opacity: .7;
+  background:
+    radial-gradient(55% 60% at 75% 78%, rgba(27,48,80,.7), transparent 70%),
+    radial-gradient(50% 55% at 22% 82%, rgba(27,48,80,.6), transparent 70%);
+}
+/* runway-light dotted baseline */
+.runway {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 130px;
+  background-image: radial-gradient(circle, var(--amber) 0 2.5px, transparent 3px);
+  background-size: 46px 46px;
+  background-position: bottom;
+  -webkit-mask-image: linear-gradient(transparent, #000 88%);
+          mask-image: linear-gradient(transparent, #000 88%);
+  opacity: .5;
+}
+.hero-inner { position: relative; z-index: 2; display: grid; gap: var(--s4); justify-items: center; }
+.hero-name { font-size: var(--t-display-xl); color: var(--cloud); letter-spacing: .02em; }
+.hero-pass { width: min(560px, 100%); }
+.scroll-cue {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; color: var(--mist);
+}
+.scroll-cue [data-lucide] { font-size: 20px; color: var(--amber); animation: bob 1.8s var(--ease) infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+/* ============================================================
+   LEG 1 — CHECK-IN route stub
+   ============================================================ */
+.route {
+  display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem); color: var(--ink);
+}
+.route .seg-ico { color: var(--blue); font-size: .8em; }
+.route .now { color: var(--signal); }
+.tags { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ============================================================
+   LEG 2 — DEPARTURES passport spread
+   ============================================================ */
+.passport {
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: linear-gradient(#15355c, #0e2645);
+  border: 1px solid var(--navy-600);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,.05);
+  overflow: hidden;
+}
+.passport .page { padding: var(--s5) var(--s4); position: relative; }
+.passport .page + .page { border-left: 2px dashed var(--navy-600); }
+.passport .page-no { position: absolute; bottom: 14px; right: 18px; font-family: var(--font-mono); font-size: 11px; color: var(--mist); }
+.placement-row { display: grid; gap: var(--s2); }
+.placement-row .logo-slot { width: 120px; }
+
+/* ============================================================
+   LEG 4 — Ofman kernkwadrant
+   ============================================================ */
+.kwadrant {
+  display: grid;
+  grid-template-columns: 1fr clamp(96px, 15%, 154px) 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 12px 10px;
+  position: relative;
+}
+.kw-cell {
+  background: var(--navy-700); border: 1px solid var(--navy-600); border-radius: 12px;
+  padding: var(--s4); min-height: 128px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.kw-cell.quality   { grid-area: 1 / 1; }
+.kw-cell.pitfall   { grid-area: 1 / 3; }
+.kw-cell.allergy   { grid-area: 3 / 1; }
+.kw-cell.challenge { grid-area: 3 / 3; }
+.kw-cell .kw-type { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; }
+.kw-cell h4 { font-family: var(--font-head); font-size: 1.15rem; margin: 6px 0 0; font-weight: 600; }
+.kw-cell.quality .kw-type { color: var(--amber); }
+.kw-cell.pitfall .kw-type { color: var(--signal); }
+.kw-cell.challenge .kw-type { color: var(--blue-soft); }
+.kw-cell.allergy .kw-type { color: var(--mist); }
+
+/* arrow gutters of the 3x3 grid */
+.kw-arrow.top    { grid-area: 1 / 2; }
+.kw-arrow.left   { grid-area: 2 / 1; }
+.kw-center       { grid-area: 2 / 2; }
+.kw-arrow.right  { grid-area: 2 / 3; }
+.kw-arrow.bottom { grid-area: 3 / 2; }
+.kw-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.kw-arrow .kw-label {
+  font-family: var(--font-mono); text-transform: uppercase;
+  font-size: 10px; letter-spacing: .08em; color: var(--mist); line-height: 1.3;
+}
+.kw-arrow svg { display: block; }
+.kw-arrow.top svg, .kw-arrow.bottom svg { width: min(150px, 100%); height: 38px; }
+.kw-arrow.left svg, .kw-arrow.right svg { width: 38px; height: 82px; }
+.kw-arrow svg path { fill: none; stroke: var(--cloud); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.kw-center { display: grid; place-items: center; }
+.kw-center svg { width: min(86px, 100%); height: auto; }
+.kw-center svg path { fill: none; stroke: var(--mist); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+
+.panel {
+  background: var(--navy-700); border: 1px solid var(--navy-600);
+  border-radius: 14px; padding: var(--s5);
+}
+.panel + .panel { margin-top: var(--s4); }
+.gauges { display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: center; }
+.gauge-wrap { display: grid; justify-items: center; gap: 10px; }
+
+/* turbulence rows — issue on top, "aanpak" directly below */
+.turb-row {
+  display: grid; grid-template-columns: 1fr; gap: 8px;
+  padding: var(--s3) 0;
+}
+.turb-row + .turb-row { border-top: 1px solid var(--navy-600); }
+.turb-row .t-issue { font-family: var(--font-head); font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+.turb-row .t-issue [data-lucide] { color: var(--signal); }
+.turb-row .t-fix { color: var(--mist); padding-left: 28px; }
+.turb-row .t-fix b { color: var(--cloud); font-weight: 600; }
+
+/* ============================================================
+   LEG 3 — counters
+   ============================================================ */
+.counters { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
+.counter .num { font-family: var(--font-display); font-size: var(--t-bignum); color: var(--amber); line-height: 1; }
+.counter .cap { color: var(--mist); margin-top: 6px; }
+.cargo-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s5); align-items: center; }
+
+/* ============================================================
+   LEG 5 — DESTINATION (sky contrast)
+   ============================================================ */
+.leg--sky {
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-bot));
+  color: var(--sky-ink);
+}
+.leg--sky .leg-title, .leg--sky .pull { color: var(--sky-ink); }
+.leg--sky .lead { color: #2b4a6b; }
+.leg--sky .leg-code { color: #355579; }
+.leg--sky .leg-code b { color: var(--sky-ink); }
+.leg--sky .wayfinding { color: #b4480f; }
+.leg--sky .wayfinding::before { background: #b4480f; }
+.leg--sky .card {
+  background: rgba(255,255,255,.62);
+  border-color: rgba(255,255,255,.8);
+  color: var(--sky-ink);
+  box-shadow: 0 18px 40px -20px rgba(11,37,64,.4);
+  backdrop-filter: blur(4px);
+}
+.leg--sky .card h3 { color: var(--sky-ink); }
+.leg--sky .card .card-ico { background: rgba(255,255,255,.7); border-color: rgba(11,37,64,.12); color: var(--signal); }
+.leg--sky .kicker { color: #b4480f; }
+.dest-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s3); }
+
+/* low-poly globe */
+.globe-stage { display: grid; place-items: center; gap: var(--s4); position: relative; }
+.globe {
+  width: min(360px, 76vw); aspect-ratio: 1; border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at 35% 30%, #eaf4ff, #8fbde8 45%, #3f7cb8 78%, #2b5f93);
+  box-shadow: inset -18px -22px 50px rgba(11,37,64,.5), 0 24px 60px -26px rgba(11,37,64,.6);
+  overflow: hidden;
+}
+/* low-poly facets */
+.globe::before {
+  content:""; position:absolute; inset:0; border-radius:50%;
+  background-image:
+    linear-gradient(60deg, rgba(255,255,255,.12) 0 1px, transparent 1px),
+    linear-gradient(-60deg, rgba(11,37,64,.12) 0 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px);
+  background-size: 34px 34px, 34px 34px, 34px 34px;
+  mix-blend-mode: overlay;
+}
+/* meridian lines */
+.globe .grid-lines { position:absolute; inset:0; border-radius:50%; opacity:.4; }
+.globe-arc { position: absolute; inset: -8%; pointer-events: none; overflow: visible; }
+.globe-arc path { fill:none; stroke: var(--signal); stroke-width: 2.5; stroke-dasharray: 6 6; filter: drop-shadow(0 0 6px rgba(229,72,31,.6)); }
+.globe-pin { fill: var(--signal); filter: drop-shadow(0 0 6px rgba(229,72,31,.7)); }
+
+/* ============================================================
+   LEG 6 — FLIGHT PLAN waypoints
+   ============================================================ */
+.waypoints { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
+.waypoint { position: relative; text-align: center; display: grid; gap: var(--s2); justify-items: center; }
+.wp-ping {
+  width: 84px; height: 84px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--navy-700); border: 1px solid var(--navy-600);
+  color: var(--amber); font-family: var(--font-display); font-size: 1.8rem;
+  position: relative;
+}
+.wp-ping::before, .wp-ping::after {
+  content:""; position:absolute; inset:0; border-radius:50%;
+  border: 2px solid var(--amber); opacity: 0;
+}
+.waypoint.is-reached .wp-ping::before { animation: ping 2.4s var(--ease) infinite; }
+.waypoint.is-reached .wp-ping::after  { animation: ping 2.4s var(--ease) infinite .6s; }
+@keyframes ping { 0% { opacity:.7; transform: scale(1);} 100% { opacity:0; transform: scale(1.9);} }
+.waypoint h3 { font-family: var(--font-head); font-size: var(--t-h3); font-weight: 600; }
+.waypoint .wp-sub { color: var(--mist); max-width: 26ch; }
+.waypoint .wp-sub b { color: var(--amber); }
+
+/* ============================================================
+   LEG 7 — ARRIVAL
+   ============================================================ */
+.arrival-card { max-width: 720px; margin-inline: auto; text-align: center; padding: var(--s6); }
+.arrival-card .pull { margin-inline: auto; }
+
+/* ============================================================
+   LEG 8 — LANDED / contact
+   ============================================================ */
+.landed { text-align: center; display: grid; gap: var(--s5); justify-items: center; }
+.contact-pass {
+  width: min(720px, 100%);
+  display: grid; grid-template-columns: 1fr auto;
+}
+.contact-actions { display: flex; gap: var(--s2); flex-wrap: wrap; }
+.next-dep { font-family: var(--font-mono); font-size: 12px; color: var(--mist); letter-spacing: .1em; }
+.next-dep .blink { color: var(--amber); animation: blink 1.4s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+[data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+[data-reveal].in { opacity: 1; transform: none; }
+[data-reveal][data-delay="1"] { transition-delay: .08s; }
+[data-reveal][data-delay="2"] { transition-delay: .16s; }
+[data-reveal][data-delay="3"] { transition-delay: .24s; }
+[data-reveal][data-delay="4"] { transition-delay: .32s; }
+[data-reveal][data-delay="5"] { transition-delay: .40s; }
+
+/* stamp thunk */
+.stamp[data-anim="stamp"] { opacity: 0; transform: scale(1.9) rotate(var(--rot, -8deg)); transition: opacity .25s, transform .45s cubic-bezier(.34,1.56,.64,1); }
+.stamp[data-anim="stamp"].in { opacity: .88; transform: scale(1) rotate(var(--rot, -8deg)); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1080px) {
+  .cargo-grid { grid-template-columns: 1fr; }
+  .passport { grid-template-columns: 1fr; }
+  .passport .page + .page { border-left: none; border-top: 2px dashed var(--navy-600); }
+}
+@media (max-width: 820px) {
+  .rail { display: none; }
+  .rail-mobile { display: flex; }
+  .counters { grid-template-columns: 1fr; gap: var(--s3); }
+  .waypoints { grid-template-columns: 1fr; }
+  .dest-cards { grid-template-columns: 1fr; }
+  .boarding-pass { grid-template-columns: 1fr; }
+  .bp-stub { border-left: none; border-top: 2px dashed rgba(22,21,19,.35); flex-direction: row; align-items: center; min-width: 0; }
+  .bp-stub::before { left: 50%; top: -10px; }
+  .bp-stub::after { left: auto; right: 50%; bottom: auto; top: -10px; }
+  .contact-pass { grid-template-columns: 1fr; }
+  .gauges { gap: var(--s4); }
+}
+@media (max-width: 760px) {
+  /* stack the quadrant cells; arrows are a desktop diagram */
+  .kwadrant { grid-template-columns: 1fr; }
+  .kw-cell.quality, .kw-cell.pitfall, .kw-cell.allergy, .kw-cell.challenge { grid-area: auto; }
+  .kw-arrow, .kw-center { display: none; }
+}
+@media (max-width: 560px) {
+  :root { --t-body: 16px; }
+  .bp-fields { grid-template-columns: 1fr 1fr; gap: var(--s2) var(--s3); }
+  .bp-tab .leg-now-label { display: none; }
+}
+
+/* ============================================================
+   SKIP LINK (keyboard a11y — first focusable element)
+   ============================================================ */
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 200;
+  background: var(--amber); color: var(--ink);
+  font-family: var(--font-head); font-weight: 600; font-size: 14px;
+  padding: 10px 16px; border-radius: 8px;
+  transform: translateY(-160%);
+  transition: transform .2s var(--ease);
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+/* ============================================================
+   RAIL — invisible >=44px hit area for small dots (touch a11y)
+   ============================================================ */
+.rail-mobile button { position: relative; }
+.rail button::before,
+.rail-mobile button::before {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 44px; height: 44px; transform: translate(-50%, -50%);
+}
+
+/* ============================================================
+   GLOBE — slow rotation, arc draws, pins drop (on reach)
+   ============================================================ */
+.globe .grid-lines { transform-origin: 50% 50%; }
+.globe.is-active .grid-lines { animation: globe-spin 64s linear infinite; }
+@keyframes globe-spin { to { transform: rotate(360deg); } }
+
+.globe-arc path { stroke-dasharray: 160; stroke-dashoffset: 160; }
+.globe.is-active .globe-arc path { animation: arc-draw 1.2s var(--ease) .2s forwards; }
+@keyframes arc-draw { to { stroke-dashoffset: 0; } }
+
+.globe-pin { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); }
+.globe.is-active .globe-pin { animation: pin-drop .55s cubic-bezier(.34,1.56,.64,1) forwards; }
+.globe.is-active .globe-pin:nth-of-type(1) { animation-delay: .2s; }
+.globe.is-active .globe-pin:nth-of-type(2) { animation-delay: 1.25s; }
+@keyframes pin-drop {
+  0%   { opacity: 0; transform: translateY(-7px) scale(0); }
+  70%  { opacity: 1; transform: translateY(0) scale(1.25); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============================================================
+   OFMAN — connecting arrows draw sequentially (on reach)
+   ============================================================ */
+.kw-arrow svg path, .kw-center svg path { stroke-dasharray: 360; stroke-dashoffset: 360; }
+.kwadrant.drawn .kw-arrow svg path { animation: arrow-draw .6s var(--ease) forwards; }
+.kwadrant.drawn .kw-arrow.top svg path    { animation-delay: .15s; }
+.kwadrant.drawn .kw-arrow.right svg path  { animation-delay: .40s; }
+.kwadrant.drawn .kw-arrow.bottom svg path { animation-delay: .65s; }
+.kwadrant.drawn .kw-arrow.left svg path   { animation-delay: .90s; }
+.kwadrant.drawn .kw-center svg path { animation: arrow-draw .8s var(--ease) 1.1s forwards; }
+@keyframes arrow-draw { to { stroke-dashoffset: 0; } }
+
+/* ============================================================
+   REDUCED MOTION  (kept LAST so it wins the cascade)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .stamp[data-anim="stamp"] { opacity: .88 !important; transform: scale(1) rotate(var(--rot, -8deg)) !important; }
+  .sky-layer { display: none; }
+  /* ensure draw-in elements are fully visible without motion */
+  .globe-arc path { stroke-dashoffset: 0 !important; }
+  .globe-pin { opacity: 1 !important; transform: none !important; }
+  .kwadrant svg path { stroke-dashoffset: 0 !important; }
+  .flip-strip[data-anim="flip"] .flip-cell { opacity: 1 !important; transform: none !important; }
+  .rwy-footer .rf-plane { transform: none !important; opacity: 1 !important; }
+  .hero-pass .bp-stub { transform: none !important; }
+}
