@@ -200,6 +200,14 @@
 .passport .page { padding: var(--s5) var(--s4); position: relative; }
 .passport .page + .page { border-left: 2px dashed var(--navy-600); }
 .passport .page-no { position: absolute; bottom: 14px; right: 18px; font-family: var(--font-mono); font-size: 11px; color: var(--mist); }
+/* centred passport-page content (stamp · logo · text · quote) */
+.page-inner {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--s3); text-align: center; min-height: 100%;
+  padding-bottom: var(--s4);
+}
+.page-inner .lead { max-width: 34ch; }
+.page-inner .mono { max-width: 38ch; }
 .placement-row { display: grid; gap: var(--s2); }
 .placement-row .logo-slot { width: 120px; }
 

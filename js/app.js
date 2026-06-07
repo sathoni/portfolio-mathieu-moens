@@ -193,6 +193,19 @@
   });
 
   /* ============================================================
+     STAMPS — "thunk" in on reach  [data-anim="stamp"]
+     ============================================================ */
+  document.querySelectorAll('[data-anim="stamp"]').forEach((s) => {
+    if (reduce) { s.classList.add('in'); return; }
+    const so = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { s.classList.add('in'); so.unobserve(s); }
+      });
+    }, { threshold: 0.4 });
+    so.observe(s);
+  });
+
+  /* ============================================================
      GLOBE — activate arc draw + pin drop + slow spin on reach
      ============================================================ */
   document.querySelectorAll('[data-anim="globe"]').forEach((g) => {
