@@ -27,11 +27,10 @@
   let lenis = null;
   if (useLenis) {
     lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,            // continuous easing — lighter & smoother than fixed duration
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.5, // native touch stays untouched on mobile
     });
     if (hasST) {
       lenis.on('scroll', ScrollTrigger.update);
